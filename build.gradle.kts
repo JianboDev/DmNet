@@ -1,8 +1,8 @@
 plugins {
     kotlin("jvm") version "1.9.25"
     id("maven-publish")
-    id("com.android.library")
- 
+    id("com.android.library") version "8.9.0" apply false
+
 }
 
 
