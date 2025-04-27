@@ -20,7 +20,7 @@ publishing {
     publications {
         create<MavenPublication>("release") {
             from(components["java" ])
-            groupId = "com.github.DmNet"
+            groupId = "com.github.jianbo1124"
             artifactId = "DmNet" // 你的模块名
             version = "1.0.0"
         }
