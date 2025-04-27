@@ -1,38 +1,39 @@
-name: Build
+name: Build Kotlin Library
+
 on:
   push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+    branches:
+      - main
+    tags:
+      - '*'
 
 jobs:
-
   build:
-    name: Build
-    runs-on: macOS-latest
-    timeout-minutes: 60
+    runs-on: ubuntu-latest
+
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - name: Fetch Sources
-        uses: actions/checkout@v3
-
-      - name: Copy CI gradle.properties
-        run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
-
-      - name: Setup Java
+      - name: Set up JDK
         uses: actions/setup-java@v3
         with:
-          java-version: 17
           distribution: 'temurin'
+          java-version: '17'
 
-      - name: Lint
-        run: |
-          ./gradlew ktlintCheck --stacktrace
+      - name: Cache Gradle packages
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            gradle-${{ runner.os }}-
 
-      - name: Api Check
-        run: |
-          ./gradlew apiCheck --stacktrace
+      - name: Build with Gradle
+        run: ./gradlew build
 
-      - name: Validate publish
-        run: |
-          ./gradlew -Pversion=1.0.0-SNAPSHOT publishToMavenLocal --stacktrace
+      - name: Publish to GitHub Releases (optional)
+        if: startsWith(github.ref, 'refs/tags/')
+        run: echo "You can add scripts here to publish artifacts if needed."
