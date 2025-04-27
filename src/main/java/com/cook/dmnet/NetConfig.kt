@@ -17,6 +17,19 @@ object NetConfig {
 
     fun init(
         baseUrl: String,
+        log: (msg: String) -> Unit
+    ) {
+        this.baseUrl = baseUrl
+        this.logHelper = object : LogHelper {
+            override fun log(msg: String) {
+                log.invoke(msg)
+            }
+        }
+    }
+
+
+    fun init(
+        baseUrl: String,
         platform: String,
         log: (msg: String) -> Unit
     ) {
