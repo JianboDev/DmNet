@@ -1,6 +1,8 @@
 plugins {
     kotlin("jvm") version "1.9.25"
     id("maven-publish")
+    id("com.android.library")
+ 
 }
 
 
