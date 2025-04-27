@@ -1,6 +1,6 @@
 package com.cook.dmnet
 
-import android.annotation.SuppressLint
+
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonDeserializer
 import retrofit2.Retrofit
@@ -30,7 +30,8 @@ internal object RetrofitFactory {
     }
 }
 
-@SuppressLint("SimpleDateFormat")
+
+
 private fun parseDate(dateStr: String): Date? {
     val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
     return simpleDateFormat.parse(dateStr)
