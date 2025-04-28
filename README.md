@@ -1,6 +1,6 @@
 # DmNet - 基于Retrofit的协程网络封装库
 
-[![JitPack Version](https://jitpack.io/v/jianbo1124/DmNet.svg)](https://jitpack.io/#jianbo1124/DmNet)
+[![](https://jitpack.io/v/JianboDev/DmNet.svg)](https://jitpack.io/#JianboDev/DmNet)
 
 > 专为Android设计的轻量级Retrofit协程封装库，简化网络请求处理流程
 
@@ -38,7 +38,7 @@ allprojects {
 
 ```gradle
 dependencies {
-    implementation("com.github.jianbo1124:DmNet:v1.2.0")
+    implementation("com.github.jianbo1124:DmNet:v1.2.1")
     
     // 必需依赖
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
