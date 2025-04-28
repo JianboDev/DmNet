@@ -7,16 +7,19 @@ import okhttp3.Response
 
 /**
  *    @Author : Ｃｏｏｋ
- *    @Date   : 2020/9/17
+ *    @Date   : 2025/4/27
  *    @Desc   :
+ *    @Version:
  */
-class TokenInterceptor : Interceptor {
+class HeadInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val original: Request = chain.request()
-        val requestBuilder: Request.Builder = original.newBuilder()
-            .header("token", NetConfig.token)
-            .header("Platform", NetConfig.platform)
-        val request: Request = requestBuilder.build()
+        val headers = NetConfig.commonHeader
+        val requestBuilder = original.newBuilder()
+        headers?.forEach { (key, value) ->
+            requestBuilder.addHeader(key, value)
+        }
+        val request = requestBuilder.build()
         return chain.proceed(request)
     }
 }

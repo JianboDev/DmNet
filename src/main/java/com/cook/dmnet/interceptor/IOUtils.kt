@@ -3,7 +3,12 @@ package com.cook.dmnet.interceptor
 import java.io.*
 import java.nio.charset.Charset
 import java.util.*
-
+/**
+ *    @Author : Ｃｏｏｋ
+ *    @Date   : 2025/4/27
+ *    @Desc   :
+ *    @Version:
+ */
 object IOUtils {
     fun closeQuietly(closeable: Closeable?) {
         if (closeable == null) return

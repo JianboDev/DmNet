@@ -15,8 +15,13 @@ import java.io.IOException
 import java.nio.charset.Charset
 import java.util.Locale
 import java.util.concurrent.TimeUnit
-
-class HttpLoggingInterceptor(tag: String?) : Interceptor {
+/**
+ *    @Author : Ｃｏｏｋ
+ *    @Date   : 2025/4/27
+ *    @Desc   :
+ *    @Version:
+ */
+class HttpLoggingInterceptor() : Interceptor {
     @Volatile
     private var printLevel: Level = Level.NONE
     private var colorLevel: java.util.logging.Level? = null

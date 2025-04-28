@@ -1,7 +1,7 @@
 package com.cook.dmnet
 
 import com.cook.dmnet.interceptor.HttpLoggingInterceptor
-import com.cook.dmnet.interceptor.TokenInterceptor
+import com.cook.dmnet.interceptor.HeadInterceptor
 import okhttp3.OkHttpClient
 import java.security.SecureRandom
 import java.security.cert.X509Certificate
@@ -20,10 +20,10 @@ internal object OkHttpFactory {
             .connectTimeout(NetConfig.timeOut, TimeUnit.SECONDS)
             .readTimeout(NetConfig.timeOut, TimeUnit.SECONDS)
             .writeTimeout(NetConfig.timeOut, TimeUnit.SECONDS)
-            .addInterceptor(TokenInterceptor())
+            .addInterceptor(HeadInterceptor())
 
         if (NetConfig.enableLog) {
-            builder.addInterceptor(HttpLoggingInterceptor("HttpLog").apply {
+            builder.addInterceptor(HttpLoggingInterceptor().apply {
                 setPrintLevel(HttpLoggingInterceptor.Level.BODY)
             })
         }

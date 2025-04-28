@@ -10,8 +10,7 @@ object NetConfig {
     var baseUrl: String = ""
     var timeOut: Long = 10L
     var enableLog: Boolean = true
-    var token: String = ""
-    var platform: String = ""
+    var commonHeader: Map<String, String>? = null
 
     var logHelper: LogHelper? = null
 
@@ -30,11 +29,11 @@ object NetConfig {
 
     fun init(
         baseUrl: String,
-        platform: String,
+        commonHeader: Map<String, String>,
         log: (msg: String) -> Unit
     ) {
         this.baseUrl = baseUrl
-        this.platform = platform
+        this.commonHeader = commonHeader
         this.logHelper = object : LogHelper {
             override fun log(msg: String) {
                 log.invoke(msg)
@@ -48,16 +47,14 @@ object NetConfig {
         baseUrl: String,
         timeout: Long,
         enableLog: Boolean,
-        token: String,
-        platform: String,
+        commonHeader: Map<String, String>,
         logHelper: LogHelper
     ) {
         this.baseUrl = baseUrl
         this.timeOut = timeout
         this.enableLog = enableLog
+        this.commonHeader = commonHeader
 
-        this.token = token
-        this.platform = platform
         this.logHelper = logHelper
     }
 }

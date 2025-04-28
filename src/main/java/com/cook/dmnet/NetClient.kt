@@ -9,6 +9,9 @@ package com.cook.dmnet
 object NetClient {
 
     fun <T> create(service: Class<T>): T {
+        if (NetConfig.baseUrl.isEmpty()) {
+            throw IllegalArgumentException("BaseUrl can not be empty")
+        }
         return RetrofitFactory.instance.create(service)
     }
 }
