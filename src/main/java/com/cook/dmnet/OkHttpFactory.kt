@@ -1,12 +1,16 @@
 package com.cook.dmnet
 
-import com.cook.dmnet.interceptor.HttpLoggingInterceptor
 import com.cook.dmnet.interceptor.HeadInterceptor
+import com.cook.dmnet.interceptor.HttpLoggingInterceptor
 import okhttp3.OkHttpClient
 import java.security.SecureRandom
 import java.security.cert.X509Certificate
 import java.util.concurrent.TimeUnit
-import javax.net.ssl.*
+import javax.net.ssl.SSLContext
+import javax.net.ssl.SSLSocketFactory
+import javax.net.ssl.TrustManager
+import javax.net.ssl.X509TrustManager
+
 /**
  *    @Author : Ｃｏｏｋ
  *    @Date   : 2025/4/27
@@ -22,6 +26,9 @@ internal object OkHttpFactory {
             .writeTimeout(NetConfig.timeOut, TimeUnit.SECONDS)
             .addInterceptor(HeadInterceptor())
 
+        for (interceptor in NetConfig.interceptorList) {
+            builder.addInterceptor(interceptor)
+        }
         if (NetConfig.enableLog) {
             builder.addInterceptor(HttpLoggingInterceptor().apply {
                 setPrintLevel(HttpLoggingInterceptor.Level.BODY)

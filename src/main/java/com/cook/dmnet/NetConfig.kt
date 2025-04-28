@@ -1,5 +1,7 @@
 package com.cook.dmnet
 
+import okhttp3.Interceptor
+
 /**
  *    @Author : Ｃｏｏｋ
  *    @Date   : 2025/4/27
@@ -11,7 +13,7 @@ object NetConfig {
     var timeOut: Long = 10L
     var enableLog: Boolean = true
     var commonHeader: Map<String, String>? = null
-
+    var interceptorList: MutableList<Interceptor> = mutableListOf()
     var logHelper: LogHelper? = null
 
     fun init(
@@ -30,10 +32,12 @@ object NetConfig {
     fun init(
         baseUrl: String,
         commonHeader: Map<String, String>,
+        interceptor: List<Interceptor>,
         log: (msg: String) -> Unit
     ) {
         this.baseUrl = baseUrl
         this.commonHeader = commonHeader
+        interceptorList.addAll(interceptor)
         this.logHelper = object : LogHelper {
             override fun log(msg: String) {
                 log.invoke(msg)
